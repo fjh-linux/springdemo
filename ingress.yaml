@@ -1,0 +1,21 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    konghq.com/https-redirect-status-code: "301"
+    konghq.com/protocols: http
+    konghq.com/regex-priority: "1000"
+  name: springboot-ing
+spec:
+  ingressClassName: kong
+  rules:
+  - host: api-test.zhdya.cn
+    http:
+      paths:
+      - backend:
+          service:
+            name: springboot
+            port:
+              number: 8080
+        path: /
+        pathType: ImplementationSpecific
